@@ -8,8 +8,8 @@ class RequestController < ApplicationController
     begin
       cipher = OpenSSL::Cipher.new 'AES-256-CBC'
       cipher.decrypt
-      pwd = 'password'
-      salt = 'salt'
+      pwd = ENV['ENCRYPT_PASSWORD']
+      salt = '61490800bb56d8fg4'
       iter = 100000
       key_len = 48 
       digest = OpenSSL::Digest::SHA512.new
