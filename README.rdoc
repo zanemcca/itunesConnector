@@ -6,5 +6,7 @@ This repositroy is a simple backend that processes beta tester invites for iOS
 docker build -t connector .
 docker run -e ENCRYPT_PASSWORD=<encryption password> -e SECRET_KEY_BASE=`RAILS_ENV=production rake secret` -e FASTLANE_USER=<AppleID> -e FASTLANE_PASSWORD=<Apple Password> -p 80:3000 --name connector connector
 
+Note: If starting with a compose.yml file then the SECRET_KEY_BASE will have to be generated before and stored as a static ENV
+
 === API
 http://localhost/request/<Hashed Email>
