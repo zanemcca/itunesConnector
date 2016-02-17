@@ -29,6 +29,9 @@ gem 'spaceship'
 # Add therubyracer to avoid execjs errors
 gem 'therubyracer'
 
+# Install healthchecker
+gem 'okcomputer'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
