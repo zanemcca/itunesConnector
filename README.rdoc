@@ -1,3 +1,10 @@
 == README
 
 This repositroy is a simple backend that processes beta tester invites for iOS
+
+=== Usage
+docker build -t connector .
+docker run -e FASTLANE_USER=<AppleID> -e FASTLANE_PASSWORD=<Apple Password> -p 80:3000 --name connector connector
+
+=== API
+http://localhost/request/<Hashed Email>
