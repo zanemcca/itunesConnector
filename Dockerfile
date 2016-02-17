@@ -14,4 +14,4 @@ ADD . /myapp
 EXPOSE 3000
 
 # Run the application
-CMD bundle exec rails s -b 0.0.0.0
+CMD RAILS_ENV=production bundle exec rails s -b 0.0.0.0
