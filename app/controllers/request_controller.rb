@@ -34,9 +34,13 @@ class RequestController < ApplicationController
   def index
     begin 
       email = decrypt_email(params[:email])
+      puts "Logging in..."
       Spaceship::Tunes::login
+      puts "Getting application..."
       app = Spaceship::Tunes::Application.find("com.instanews.ios")
+      puts "Adding tester..."
       app.add_external_tester!(email: email)
+      puts "Complete!"
     rescue RuntimeError => err
       print params[:email] + " is already a beta tester\n"
       puts err
