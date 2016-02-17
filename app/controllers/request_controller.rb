@@ -19,12 +19,12 @@ class RequestController < ApplicationController
       cipher.key = key[0..31];
       cipher.iv = key[32..-1];
 
-      puts params[:email]
+      logger.debug params[:email]
 
       email = cipher.update(crypt.scan(/../).map{|b|b.hex}.pack('c*'))
       email << cipher.final
 
-      puts email
+      logger.debug email
       raise ArgumentError, "Invalid email" if !is_valid_email?(email)
 
       return email
@@ -34,21 +34,21 @@ class RequestController < ApplicationController
   def index
     begin 
       email = decrypt_email(params[:email])
-      puts "Logging in..."
+      logger.debug "Logging in..."
       Spaceship::Tunes::login
-      puts "Getting application..."
+      logger.debug "Getting application..."
       app = Spaceship::Tunes::Application.find("com.instanews.ios")
-      puts "Adding tester..."
+      logger.debug "Adding tester..."
       app.add_external_tester!(email: email)
-      puts "Complete!"
+      logger.debug "Complete!"
     rescue RuntimeError => err
-      print params[:email] + " is already a beta tester\n"
-      puts err
+      logger.error params[:email] + " is already a beta tester"
+      logger.error err
 
       render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     rescue => err
-      print "Failed to add " + params[:email] + " to the beta testers\n"
-      puts err
+      logger.error "Failed to add " + params[:email] + " to the beta testers"
+      logger.error err
 
       render(:file => File.join(Rails.root, 'public/500.html'), :status => 500, :layout => false)
     end
